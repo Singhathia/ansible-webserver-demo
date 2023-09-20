@@ -1,44 +1,9 @@
-# ---
-# - name: Configure Web Servers
-#   hosts: web_servers
-#   become: yes
-#   vars:
-#     server_name: "{{ ansible_default_ipv4.address }}"
-#     document_root: /var/www
-#     app_root: html_demo_site-main
-
-
-#   tasks:
-#     - name: Install Nginx
-#       apt:
-#         name: nginx
-#         state: present
-#       notify: restart nginx
-
-#     - name: Copy Nginx default site configuration
-#       template:
-#         src: nginx-vhost.conf.j2
-#         dest: /etc/nginx/sites-available/default
-#       notify: restart nginx
-
-#     - name: Deploy Sample Website
-#       copy:
-#         src: files/2089_meteor/index.html
-#         dest: /var/www/html/
-
-#   handlers:
-#   - name: restart nginx
-#     service:
-#       name: nginx
-#       state: restarted
-
-
 ---
 - name: Configure web servers
   hosts: web_servers
   become: yes
   vars:
-    server_name: "{{ ansible_default_ipv4.address }}"
+    # server_name: "{{ ansible_default_ipv4.address }}"
     document_root: /var/www
     app_root: files
   tasks:
