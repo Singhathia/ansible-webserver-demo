@@ -1,43 +1,43 @@
 ---
-- name: Configure web servers
+- name: Configure web servers and deploy website using Ansible
   hosts: web_servers
   become: yes
   vars:
     document_root: /var/www
     app_root: files
   tasks:
-    - name: Install Nginx
+    - name: Installing Nginx
       apt:
         name: nginx
         state: present
 
-    - name: Copy website files to the server's document root
+    - name: Copying website files to the server's document root
       copy:
         src: "{{ app_root }}"
         dest: "{{ document_root }}"
         mode: preserve
 
-    - name: Apply Nginx default site configuration
+    - name: Applying Nginx default site configuration
       template:
         src: nginx.conf.j2
         dest: /etc/nginx/sites-available/default
       notify: Restart Nginx
 
-    - name: Deploy Sample Website
+    - name: Deploying Sample Website
       file:
         src: /etc/nginx/sites-available/default
         dest: /etc/nginx/sites-enabled/default
         state: link
       notify: Restart Nginx
 
-    - name: Allow all access to tcp port 80
+    - name: Allowing all access to tcp port 80
       ufw:
         rule: allow
         port: '80'
         proto: tcp
 
   handlers:
-    - name: Restart Nginx
+    - name: Restarting Nginx
       service:
         name: nginx
         state: restarted
