@@ -37,7 +37,7 @@
         proto: tcp
 
   handlers:
-    - name: Restarting Nginx
+    - name: Restart Nginx
       service:
         name: nginx
         state: restarted
