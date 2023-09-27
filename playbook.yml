@@ -1,7 +1,7 @@
 ---
 - name: Configure web servers and deploy website using Ansible
   hosts: web_servers
-  become: true
+  become: yes
   vars:
     document_root: /var/www
     app_root: files
